@@ -4,6 +4,10 @@
 
   <%= f.button :submit, "Income" %>
   <%= f.button :submit, "Outgoing" %>
-  Income: <%= @income.collect(&:amount).map(&:to_f).inject(&:+) %>
-  Outgoing: <%= @outgoing.collect(&:amount).map(&:to_f).inject(&:+) %>
+  <p>
+    <span class="income"> Income: <%= @monthly_income %> </span>
+  </p>
+  <p>
+    <span class="outgoing"> Outgoing: <%= @monthly_outgoing %> </span>
+  </p>
 <% end %>
