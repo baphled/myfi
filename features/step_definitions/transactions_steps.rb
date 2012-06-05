@@ -14,6 +14,14 @@ When /^submit as income$/ do
   click_button "Income"
 end
 
+When /^submit as outgoing$/ do
+  click_button "Outgoing"
+end
+
 Then /^I should see my monthly income as "(.*?)"$/ do |amount|
   page.has_content? "Income: #{ amount }"
+end
+
+Then /^I should see my monthly outgoing as "(.*?)"$/ do |amount|
+  page.has_content? "Outgoing: #{ amount }"
 end

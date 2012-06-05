@@ -1,4 +1,4 @@
-class Income
+class Outgoing
   include Mongoid::Document
 
   field :type
