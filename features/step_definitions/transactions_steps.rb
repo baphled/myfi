@@ -14,6 +14,6 @@ When /^submit as income$/ do
   click_button "Income"
 end
 
-Then /^I should see my monthly total as "(.*?)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then /^I should see my monthly total as "(.*?)"$/ do |amount|
+  page.has_content? "Income: #{ amount }"
 end

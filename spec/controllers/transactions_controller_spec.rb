@@ -6,8 +6,12 @@ describe TransactionsController do
       Transaction.should_receive :new
       get :new
     end
-    it "gets the total income"
+    it "gets the total income" do
+      Income.should_receive :all
+      get :new
+    end
   end
+
   describe "POST create" do
     context "Adding income" do
       it "creates a new income entry" do

@@ -3,4 +3,5 @@
   <%= f.input :amount %>
 
   <%= f.button :submit, "Income" %>
+  Income: <%= @income.collect(&:amount).map(&:to_f).inject(&:+) %>
 <% end %>

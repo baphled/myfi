@@ -3,7 +3,6 @@ Feature: I want to be able to add my monthly income
   As a user
   I want to be able to easily submit my monthly income
 
-  @wip
   Scenario: I should be able to enter my income
     Given I am on my new transaction page
     And I fill in type as "Salary"
@@ -11,7 +10,6 @@ Feature: I want to be able to add my monthly income
     And submit as income
     Then I should see my monthly total as "2200.00"
 
-  @wip
   Scenario: I should be able to add more than one income
     Given I am on my new transaction page
     And I fill in type as "Salary"
