@@ -1,5 +1,5 @@
-Given /^I am on my transactions page$/ do
-  visit transactions_path
+Given /^I am on my new transaction page$/ do
+  visit new_transaction_path
 end
 
 Given /^I fill in type as "(.*?)"$/ do |type|
@@ -11,7 +11,7 @@ When /^I fill the amount as "(.*?)"$/ do |amount|
 end
 
 When /^submit as income$/ do
-  pending # express the regexp above with the code you wish you had
+  click_button "Income"
 end
 
 Then /^I should see my monthly total as "(.*?)"$/ do |arg1|

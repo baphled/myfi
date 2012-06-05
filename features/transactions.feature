@@ -5,7 +5,7 @@ Feature: I want to be able to add my monthly income
 
   @wip
   Scenario: I should be able to enter my income
-    Given I am on my transactions page
+    Given I am on my new transaction page
     And I fill in type as "Salary"
     When I fill the amount as "2200.00"
     And submit as income
@@ -13,7 +13,7 @@ Feature: I want to be able to add my monthly income
 
   @wip
   Scenario: I should be able to add more than one income
-    Given I am on my transactions page
+    Given I am on my new transaction page
     And I fill in type as "Salary"
     When I fill the amount as "2200.00"
     And I fill in type as "Freelance"
