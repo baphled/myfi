@@ -14,6 +14,6 @@ When /^submit as income$/ do
   click_button "Income"
 end
 
-Then /^I should see my monthly total as "(.*?)"$/ do |amount|
+Then /^I should see my monthly income as "(.*?)"$/ do |amount|
   page.has_content? "Income: #{ amount }"
 end
