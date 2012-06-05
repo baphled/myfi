@@ -7,12 +7,12 @@ describe TransactionsController do
       get :new
     end
     it "gets the total income" do
-      Income.should_receive :all
+      Income.should_receive :this_month
       get :new
     end
 
     it "gets the total outgoing" do
-      Outgoing.should_receive :all
+      Outgoing.should_receive :this_month
       get :new
     end
   end

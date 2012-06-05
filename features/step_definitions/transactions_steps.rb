@@ -18,10 +18,20 @@ When /^submit as outgoing$/ do
   click_button "Outgoing"
 end
 
+When /^I visit my monthly income next month$/ do
+  start_of_the_month = Date.today.at_beginning_of_month
+  Timecop.freeze start_of_the_month
+  visit new_transaction_path
+end
+
 Then /^I should see my monthly income as "(.*?)"$/ do |amount|
   page.has_content? "Income: #{ amount }"
 end
 
 Then /^I should see my monthly outgoing as "(.*?)"$/ do |amount|
   page.has_content? "Outgoing: #{ amount }"
+end
+
+When /^I check it as "(.*?)"$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
 end

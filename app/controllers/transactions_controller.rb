@@ -1,8 +1,8 @@
 class TransactionsController < ApplicationController
   def new
     @transaction = Transaction.new
-    @income = Income.all
-    @outgoing = Outgoing.all
+    @income = Income.this_month
+    @outgoing = Outgoing.this_month
   end
 
   def create
@@ -10,5 +10,4 @@ class TransactionsController < ApplicationController
     Outgoing.create params[:transaction] if params[:submit] == 'outgoing'
     redirect_to new_transaction_path
   end
-
 end

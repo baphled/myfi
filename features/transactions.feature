@@ -1,7 +1,7 @@
-Feature: I want to be able to add my monthly income
-  In order to keep track of how much money I have coming in monthly
+Feature: Transactions
+  In order to keep track of how much money I have coming in
   As a user
-  I want to be able to easily submit my monthly income
+  I want to be able to easily submit my month going in and out
 
   Scenario: I should be able to enter my income
     Given I am on my new transaction page

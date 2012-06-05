@@ -42,6 +42,7 @@ gem 'jquery-rails'
 #
 group :test do
   gem 'cucumber-rails'
+  gem 'timecop'
 end
 
 group :test, :development do
