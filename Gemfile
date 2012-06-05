@@ -4,7 +4,8 @@ gem 'rails',     :git => 'git://github.com/rails/rails.git', :branch => '3-2-sta
 gem 'journey',   :git => 'git://github.com/rails/journey.git'
 gem 'arel',      :git => 'git://github.com/rails/arel.git', :branch => '3-0-stable'
 
-
+gem 'mongoid'
+gem 'bson_ext'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -37,8 +38,13 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 #
+group :test do
+  gem 'cucumber-rails'
+end
+
 group :test, :development do
   gem 'rspec'
+  gem 'rspec-rails'
   gem 'cucumber'
   gem 'capybara'
 end
