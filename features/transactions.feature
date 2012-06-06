@@ -55,6 +55,16 @@ Feature: Transactions
     And submit as income
     Then I should see my monthly income as "0.0"
 
+  Scenario: I should be able to see my monthly total
+    Given I am on my new transaction page
+    And I fill in type as "Salary"
+    When I fill the amount as "2200.00"
+    And submit as income
+    And I fill in type as "Freelance"
+    When I fill the amount as "1200.0"
+    And submit as outgoing
+    Then I should see my monthly total as "1000.0"
+
   @wip
   Scenario: I should be able to set a transaction as reoccuring
     Given I am on my new transaction page
@@ -65,4 +75,3 @@ Feature: Transactions
     When I visit my monthly income next month
     Then I should see my monthly income as "2200.0"
 
-  Scenario: I should be able to see my monthly total

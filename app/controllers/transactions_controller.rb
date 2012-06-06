@@ -3,6 +3,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new
     @monthly_income = Income.monthly_total
     @monthly_outgoing = Outgoing.monthly_total
+    @monthly_total = Transaction.monthly_total
   end
 
   def create

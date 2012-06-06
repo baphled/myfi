@@ -39,3 +39,7 @@ end
 When /^I fill in "created at" as next month$/ do
   fill_in "Created at", :with => Date.today.next_month
 end
+
+Then /^I should see my monthly total as "(.*?)"$/ do |amount|
+  find('.total').should have_content "Total: #{amount}"
+end
