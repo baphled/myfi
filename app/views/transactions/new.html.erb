@@ -1,14 +1,19 @@
-<%= simple_form_for @transaction do |f| %>
-  <%= f.input :type %>
-  <%= f.input :amount %>
-  <%= f.input :created_at %>
+<div class="span10">
+  <%= simple_form_for @transaction, :url => transactions_path, :html => { :class => 'well' }, :defaults => { :input_html => {:class => 'span4'} } do |f| %>
+    <%= f.input :type %>
+    <%= f.input :amount %>
 
-  <%= f.input :reoccuring, :as => :boolean %>
-  <%= f.input :starting_from %>
-  <%= f.input :reoccuring_until %>
+    <%= f.input :created_at %>
+    <%= f.input :reoccuring, :as => :boolean %>
 
-  <%= f.button :submit, "Income" %>
-  <%= f.button :submit, "Outgoing" %>
+    <%= f.input :starting_from %>
+    <%= f.input :reoccuring_until %>
+
+    <%= f.button :submit, "Income" %>
+    <%= f.button :submit, "Outgoing" %>
+  <% end %>
+</div>
+<div class="span5">
   <p>
     <span class="income"> Income: <%= @monthly_income %> </span>
   </p>
@@ -18,4 +23,4 @@
   <p>
     <span class="total"> Total: <%= @monthly_total %> </span>
   </p>
-<% end %>
+</div>
