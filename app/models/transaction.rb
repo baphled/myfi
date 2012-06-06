@@ -1,12 +1,12 @@
 class Transaction
-  include Mongoid::Document
-  include Mongoid::Timestamps
+  include ActiveAttr::Model
 
-  field :type
-  field :amount
-  field :reoccuring, :type => Boolean
-  field :starting_from
-  field :reoccuring_until
+  attribute :type
+  attribute :amount
+
+  attribute :reoccuring, :type => Boolean
+  attribute :starting_from
+  attribute :reoccuring_until
 
   def self.monthly_total
     Income.monthly_total - Outgoing.monthly_total

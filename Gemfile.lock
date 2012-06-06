@@ -81,6 +81,9 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    active_attr (0.5.1)
+      activemodel (>= 3.0.2, < 4.1)
+      activesupport (>= 3.0.2, < 4.1)
     addressable (2.2.8)
     bootstrap-sass (2.0.3.1)
     bson (1.6.2)
@@ -195,6 +198,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_attr
   arel!
   bootstrap-sass
   bson_ext

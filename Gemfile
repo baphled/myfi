@@ -7,6 +7,7 @@ gem 'arel',      :git => 'git://github.com/rails/arel.git', :branch => '3-0-stab
 gem 'mongoid'
 gem 'bson_ext'
 
+gem "active_attr"
 gem 'simple_form'
 
 # Gems used only for assets and not required
