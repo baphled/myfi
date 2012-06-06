@@ -1,5 +1,5 @@
 <div class="span10">
-  <%= simple_form_for @transaction, :url => transactions_path, :html => { :class => 'well' }, :defaults => { :input_html => {:class => 'span4'} } do |f| %>
+  <%= simple_form_for @transaction, :html => { :class => 'well' }, :defaults => { :input_html => {:class => 'span4'} } do |f| %>
     <%= f.input :type %>
     <%= f.input :amount %>
 
