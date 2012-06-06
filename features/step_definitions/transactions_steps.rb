@@ -32,8 +32,8 @@ Then /^I should see my monthly outgoing as "(.*?)"$/ do |amount|
   find('.outgoing').should have_content "Outgoing: #{amount}"
 end
 
-When /^I check it as "(.*?)"$/ do |arg1|
-  check 'Reoccuring'
+When /^I check it as "(.*?)"$/ do |check_box|
+  check check_box
 end
 
 When /^I fill in "created at" as next month$/ do

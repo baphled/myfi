@@ -69,9 +69,20 @@ Feature: Transactions
     Given I am on my new transaction page
     And I fill in type as "Salary"
     When I fill the amount as "2200.00"
-    And I check it as "reoccuring"
+    And I check it as "Reoccuring"
     And I fill in that it starts from today
     And it stops reoccuring in 6 months
     And submit as income
     When I visit my monthly income in 6 months
     Then I should see my monthly income as "2200.0"
+
+  Scenario: I should be able to set an outgoing transaction as reoccuring
+    Given I am on my new transaction page
+    And I fill in type as "Water"
+    When I fill the amount as "45.00"
+    And I check it as "Reoccuring"
+    And I fill in that it starts from today
+    And it stops reoccuring in 6 months
+    And submit as outgoing
+    When I visit my monthly income in 6 months
+    Then I should see my monthly outgoing as "45.0"
