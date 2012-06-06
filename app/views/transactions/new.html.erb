@@ -3,6 +3,10 @@
   <%= f.input :amount %>
   <%= f.input :created_at %>
 
+  <%= f.input :reoccuring, :as => :boolean %>
+  <%= f.input :starting_from %>
+  <%= f.input :reoccuring_until %>
+
   <%= f.button :submit, "Income" %>
   <%= f.button :submit, "Outgoing" %>
   <p>
