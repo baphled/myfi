@@ -35,3 +35,7 @@ end
 When /^I check it as "(.*?)"$/ do |arg1|
   pending # express the regexp above with the code you wish you had
 end
+
+When /^I fill in "created at" as next month$/ do
+  fill_in "Created at", :with => Date.today.next_month
+end

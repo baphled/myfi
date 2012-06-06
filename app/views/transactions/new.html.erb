@@ -1,6 +1,7 @@
 <%= simple_form_for @transaction do |f| %>
   <%= f.input :type %>
   <%= f.input :amount %>
+  <%= f.input :created_at %>
 
   <%= f.button :submit, "Income" %>
   <%= f.button :submit, "Outgoing" %>

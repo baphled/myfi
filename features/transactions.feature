@@ -27,7 +27,7 @@ Feature: Transactions
     And submit as outgoing
     Then I should see my monthly outgoing as "2200.0"
 
-  Scenario: I should be able to add my income and outgoing and see an accurate total
+  Scenario: I should be able to see my in/outcome
     Given I am on my new transaction page
     And I fill in type as "Salary"
     When I fill the amount as "2200.00"
@@ -45,6 +45,14 @@ Feature: Transactions
     And submit as income
     Then I should see my monthly income as "2200.0"
     When I visit my monthly income next month
+    Then I should see my monthly income as "0.0"
+
+  Scenario: I should be able to set when the transaction is made
+    Given I am on my new transaction page
+    And I fill in type as "Salary"
+    When I fill the amount as "2200.00"
+    And I fill in "created at" as next month
+    And submit as income
     Then I should see my monthly income as "0.0"
 
   @wip
