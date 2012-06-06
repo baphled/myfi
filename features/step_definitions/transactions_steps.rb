@@ -44,7 +44,6 @@ When /^I visit my monthly income in (\d+) months$/ do |months_passed|
   start_of_the_month = Time.now.advance :months => months_passed.to_i
   Timecop.freeze start_of_the_month
   visit new_transaction_path
-  save_and_open_page
 end
 
 Then /^I should see my monthly total as "(.*?)"$/ do |amount|
