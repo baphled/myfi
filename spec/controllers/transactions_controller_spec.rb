@@ -3,16 +3,16 @@ require "spec_helper"
 describe TransactionsController do
   describe "GET new" do
     it "instantiates a new transaction" do
-      Transaction.should_receive :new
+      Transaction.should_receive( :new )
       get :new
     end
     it "gets the total income" do
-      Income.should_receive :monthly_total
+      Income.should_receive( :monthly_total ).at_least( :once ).and_return 0.0
       get :new
     end
 
     it "gets the total outgoing" do
-      Outgoing.should_receive :monthly_total
+      Outgoing.should_receive( :monthly_total ).at_least(:once).and_return 0.0
       get :new
     end
   end
