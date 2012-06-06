@@ -19,7 +19,7 @@ When /^submit as outgoing$/ do
 end
 
 When /^I visit my monthly income next month$/ do
-  start_of_the_month = Date.tomorrow.next_month
+  start_of_the_month = Time.now.advance :months => 1
   Timecop.freeze start_of_the_month
   visit new_transaction_path
 end
@@ -33,11 +33,18 @@ Then /^I should see my monthly outgoing as "(.*?)"$/ do |amount|
 end
 
 When /^I check it as "(.*?)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+  check 'Reoccuring'
 end
 
 When /^I fill in "created at" as next month$/ do
   fill_in "Created at", :with => Date.today.next_month
+end
+
+When /^I visit my monthly income in (\d+) months$/ do |months_passed|
+  start_of_the_month = Time.now.advance :months => months_passed.to_i
+  Timecop.freeze start_of_the_month
+  visit new_transaction_path
+  save_and_open_page
 end
 
 Then /^I should see my monthly total as "(.*?)"$/ do |amount|

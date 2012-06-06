@@ -65,13 +65,13 @@ Feature: Transactions
     And submit as outgoing
     Then I should see my monthly total as "1000.0"
 
-  @wip
   Scenario: I should be able to set a transaction as reoccuring
     Given I am on my new transaction page
     And I fill in type as "Salary"
     When I fill the amount as "2200.00"
     And I check it as "reoccuring"
+    And I fill in that it starts from today
+    And it stops reoccuring in 6 months
     And submit as income
-    When I visit my monthly income next month
+    When I visit my monthly income in 6 months
     Then I should see my monthly income as "2200.0"
-

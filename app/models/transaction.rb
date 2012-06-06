@@ -4,6 +4,9 @@ class Transaction
 
   field :type
   field :amount
+  field :reoccuring, :type => Boolean
+  field :starting_from
+  field :reoccuring_until
 
   def self.monthly_total
     Income.monthly_total - Outgoing.monthly_total
