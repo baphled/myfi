@@ -9,6 +9,7 @@ gem 'bson_ext'
 
 gem "active_attr"
 gem 'simple_form'
+gem 'validates_timeliness'
 
 # Gems used only for assets and not required
 # in production environments by default.

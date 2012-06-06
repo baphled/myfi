@@ -20,14 +20,20 @@ describe TransactionsController do
   describe "POST create" do
     context "Adding income" do
       it "creates a new income entry" do
-        Transaction.should_receive( :add ).with('Income', { 'type' => 'Salary', 'amount' => '2400.00' })
+        income = Income.new
+        Transaction.should_receive( :add )
+          .with('Income', { 'type' => 'Salary', 'amount' => '2400.00' })
+          .and_return income
         post :create, :transaction => {:type => 'Salary', :amount => '2400.00'}, :commit => 'Income'
       end
     end
 
     context "Adding outgoing" do
       it "creates a new outgoing entry" do
-        Transaction.should_receive( :add ).with('Outgoing', { 'type' => 'Phone bill', 'amount' => '120.00' })
+        outgoing = Outgoing.new
+        Transaction.should_receive( :add )
+          .with('Outgoing', { 'type' => 'Phone bill', 'amount' => '120.00' })
+          .and_return outgoing
         post :create, :transaction => {:type => 'Phone bill', :amount => '120.00'}, :commit => 'Outgoing'
       end
     end
