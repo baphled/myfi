@@ -11,15 +11,23 @@ describe Transaction do
   end
 
   describe "#monthly_total" do
-    it "calculates the monthly income" do
-      income = Income.create :type => 'Salary', :amount => '2400.00'
-      Transaction.monthly_total.should eql Income.monthly_total
+
+    context "with income" do
+      let( :income ) { Income.create :type => 'Salary', :amount => '2400.00' }
+
+      it "calculates the monthly income" do
+        Transaction.monthly_total.should eql Income.monthly_total
+      end
+
+      it "calculates the monthly outogoing" do
+        outogoing = Outgoing.create :type => 'Debt', :amount => '240.00'
+        Transaction.monthly_total.should eql Income.monthly_total - Outgoing.monthly_total
+      end
     end
 
-    it "calculates the monthly outogoing" do
-      income = Income.create :type => 'Salary', :amount => '2400.00'
+    it "should be able to deal with negative values" do
       outogoing = Outgoing.create :type => 'Debt', :amount => '240.00'
-      Transaction.monthly_total.should eql Income.monthly_total - Outgoing.monthly_total
+      Transaction.monthly_total.should eql -240.00
     end
   end
 end
