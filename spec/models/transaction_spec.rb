@@ -10,8 +10,20 @@ describe Transaction do
     @transaction.amount.should eql '123.00'
   end
 
-  describe "#monthly_total" do
+  describe "#add" do
+    it "can create a new income entry" do
+      Income.should_receive :create
+      params = {:type => 'Salary', :amount => '2470.00'}
+      Transaction.add 'income', params
+    end
 
+    it "can create a new outgoing entry" do
+      Outgoing.should_receive :create
+      params = {:type => 'Water bill', :amount => '45.00'}
+      Transaction.add 'outgoing', params
+    end
+  end
+  describe "#monthly_total" do
     context "with income" do
       let( :income ) { Income.create :type => 'Salary', :amount => '2400.00' }
 

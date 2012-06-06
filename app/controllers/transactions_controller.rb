@@ -7,8 +7,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    Income.create params[:transaction] if params[:commit] == 'Income'
-    Outgoing.create params[:transaction] if params[:commit] == 'Outgoing'
+    Transaction.add params[:commit], params[:transaction]
     redirect_to new_transaction_path
   end
 end
