@@ -2,26 +2,32 @@ Given /^I am on my new transaction page$/ do
   visit new_transaction_path
 end
 
-Given /^I fill in type as "(.*?)"$/ do |type|
-  fill_in "Type", :with => type
-end
-
-When /^I fill the amount as "(.*?)"$/ do |amount|
-  fill_in "Amount", :with => amount
-end
-
-When /^submit as income$/ do
-  click_button "Income"
-end
-
-When /^submit as outgoing$/ do
-  click_button "Outgoing"
-end
-
 When /^I visit my monthly income next month$/ do
   start_of_the_month = Time.now.advance :months => 1
   Timecop.freeze start_of_the_month
   visit new_transaction_path
+end
+
+When /^I add my "(.*?)" at "(.*?)" as my "(.*?)"$/ do |type, amount, transaction_type|
+  fill_in "Type", :with => type
+  fill_in "Amount", :with => amount
+  click_button transaction_type.capitalize
+end
+
+When /^I add my "(.*?)" at "(.*?)" as my "(.*?)" for next month$/ do |type, amount, transaction_type|
+  fill_in "Type", :with => type
+  fill_in "Amount", :with => amount
+  fill_in "Created at", :with => Date.today.next_month
+  click_button transaction_type.capitalize
+end
+
+When /^I add a reoccuring "(.*?)" of "(.*?)" as my "(.*?)" from today to 6 months$/ do |transaction_type, amount, type|
+  fill_in "Type", :with => type
+  fill_in "Amount", :with => amount
+  fill_in "Reoccuring until", :with => Date.today.advance( :months => 6)
+  fill_in "Starting from", :with => Date.today
+  check 'Reoccuring'
+  click_button transaction_type.capitalize
 end
 
 Then /^I should see my monthly income as "(.*?)"$/ do |amount|
@@ -34,10 +40,6 @@ end
 
 When /^I check it as "(.*?)"$/ do |check_box|
   check check_box
-end
-
-When /^I fill in "created at" as next month$/ do
-  fill_in "Created at", :with => Date.today.next_month
 end
 
 When /^I visit my monthly income in (\d+) months$/ do |months_passed|
