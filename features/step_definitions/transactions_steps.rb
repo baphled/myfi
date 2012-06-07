@@ -30,6 +30,29 @@ When /^I add a reoccuring "(.*?)" of "(.*?)" as my "(.*?)" from today to 6 month
   click_button transaction_type.capitalize
 end
 
+Given /^it is (\d+) weeks into the month$/ do |number_of|
+  number_of = number_of.to_i
+  Timecop.travel number_of.weeks.ago
+end
+
+When /^I have a "(.*?)" of "(.*?)" as my "(.*?)" (\d+) days ago$/ do |transaction_type, amount, type, days_ago|
+  visit new_transaction_path
+  fill_in "Type", :with => type
+  fill_in "Amount", :with => amount
+  fill_in "Reoccuring until", :with => Date.today.advance( :months => 6)
+  fill_in "Starting from", :with => Date.today
+  fill_in "Created at", :with => days_ago.to_i.days.ago
+  click_button transaction_type.capitalize
+end
+
+Then /^I should (\d+) "(.*?)" entries$/ do |amount, type|
+  find("##{type}-breakdown").should have_css "li.#{type}", :count => amount.to_i
+end
+
+Then /^I should (\d+) "(.*?)" entry$/ do |amount, type|
+  find("##{type}-breakdown").should have_css "li.#{type}", :count => amount.to_i
+end
+
 Then /^I should see my monthly income as "(.*?)"$/ do |amount|
   find('.income').should have_content "Income: #{amount}"
 end

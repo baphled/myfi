@@ -27,4 +27,11 @@ describe Income do
       end
     end
   end
+
+  describe "#monthly_breakdown" do
+    it "gets a list of income for this month" do
+      @income = Income.create :type => "Salary", :amount => '2300.00'
+      Income.monthly_breakdown.to_a.should eql [@income]
+    end
+  end
 end

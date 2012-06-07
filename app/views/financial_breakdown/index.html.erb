@@ -1,0 +1,10 @@
+<ul id="income-breakdown">
+  <% @income_breakdown.each do |income| %>
+    <li class="income"><%= income.type %> - <%= income.amount.to_f %> - <%= income.created_at %>
+  <%end %>
+</ul>
+<ul id="outgoing-breakdown">
+  <% @outgoing_breakdown.each do |income| %>
+    <li class="outgoing"><%= income.type %> - <%= income.amount.to_f %> - <%= income.created_at %>
+  <%end %>
+</ul>
