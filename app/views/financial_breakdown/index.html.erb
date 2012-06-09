@@ -1,10 +1,27 @@
-<ul id="income-breakdown">
-  <% @income_breakdown.each do |income| %>
-    <li class="income"><%= income.type %> - <%= income.amount.to_f %> - <%= income.created_at %>
-  <%end %>
-</ul>
-<ul id="outgoing-breakdown">
-  <% @outgoing_breakdown.each do |income| %>
-    <li class="outgoing"><%= income.type %> - <%= income.amount.to_f %> - <%= income.created_at %>
-  <%end %>
-</ul>
+<h2>Monthly breakdown</h2>
+<div class="span18">
+  <div class="row span5">
+    <h2>Income</h2>
+    <ul id="income-breakdown">
+      <% @income_breakdown.each do |income| %>
+        <li class="income"><%= income.type %> - <%= income.amount.to_f %> - <%= income.created_at %>
+        <%end %>
+      </ul>
+      <hr />
+      <span>Total: <%= @monthly_income %></span>
+    </div>
+    <div class="row span5">
+      <h2>Outgoings</h2>
+      <ul id="outgoing-breakdown">
+        <% @outgoing_breakdown.each do |income| %>
+          <li class="outgoing"><%= income.type %> - <%= income.amount.to_f %> - <%= income.created_at %>
+        <%end %>
+      </ul>
+      <hr />
+      <span>Total: <%= @monthly_outgoing %></span>
+    </div>
+  </div>
+  <div class="row span5">
+    <span>Total Monthly: <%= @monthly_total %></span>
+  </div>
+</div>
