@@ -2,6 +2,7 @@ Given /^I successfully fill in the signup form$/ do
   fill_in "Email", :with => 'y@me.com'
   fill_in "Password", :with => 'password'
   fill_in "Password confirmation", :with => 'password'
+  click_button 'Create account'
 end
 
 Given /^I am signed in to my account$/ do
@@ -9,10 +10,6 @@ Given /^I am signed in to my account$/ do
   step %{I fill in "Email" with "#{@user.email}"}
   step %{I fill in "Password" with "#{@user.password}"}
   step %{I press "Signin"}
-end
-
-When /^submit the signup form$/ do
-  click_button 'Create account'
 end
 
 Given /^I am a registered user$/ do
@@ -35,10 +32,18 @@ When /^I press "(.*?)"$/ do |button_title|
   click_button button_title
 end
 
+When /^I sign out$/ do
+  visit logout_path
+end
+
 Then /^I should still be signed in$/ do
   find('.login-status').should have_content "Signed in as: #{@user.email}"
 end
 
 Then /^I should see the flash message "(.*?)"$/ do |message|
   find('.alert-success').should have_content message
+end
+
+Then /^my account should be created$/ do
+  User.count.should eql 1
 end

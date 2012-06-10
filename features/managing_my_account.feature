@@ -5,9 +5,9 @@ Feature: Managing my account
 
   Scenario: I should be able to create a new account
     Given I am on the signup page
-    And I successfully fill in the signup form
-    When submit the signup form
-    Then I should see the flash message "Successfully created account"
+    When I successfully fill in the signup form
+    Then my account should be created
+    And I should see the flash message "Successfully created account"
 
   Scenario: I should be able to signin
     Given I am a registered user
@@ -16,6 +16,12 @@ Feature: Managing my account
     And I fill in "Password" with "password"
     When I press "Signin"
     Then I should see the flash message "Successfully signed in"
+
+  Scenario: I should be able to sign out
+    Given I am a registered user
+    And I am signed in to my account
+    When I sign out
+    Then I should see the flash message "Successfully signed out"
 
   Scenario: I should stay logged in
     Given I am a registered user

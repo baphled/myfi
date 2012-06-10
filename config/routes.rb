@@ -5,4 +5,7 @@ MyFi::Application.routes.draw do
   resources :financial_breakdown, :only => [:index]
   resource :session, :only => [:new, :create, :destroy]
   resource :users
+
+  match 'logout', :controller => 'sessions', :action => 'destroy'
+  match 'login', :controller => 'sessions', :action => 'new'
 end
