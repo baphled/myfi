@@ -9,5 +9,16 @@ class IncomesController < ApplicationController
       render '/transactions/new'
     end
   end
+
+  def show
+    @income = current_user.income_entries.find params[:id]
+  end
+
+  def destroy
+    income = current_user.income_entries.find params[:id]
+    if income.delete
+      redirect_to dashboard_path, :notice => 'Successfully removed income entry'
+    end
+  end
 end
 

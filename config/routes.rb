@@ -1,6 +1,6 @@
 MyFi::Application.routes.draw do
   resources :transactions
-  resources :incomes, :only => [:create]
+  resources :incomes, :only => [:create, :show, :destroy]
   resources :outgoings, :only => [:create]
   resources :financial_breakdown, :only => [:index]
   resource :session, :only => [:new, :create, :destroy]

@@ -59,3 +59,10 @@ Feature: Transactions
     When I add a reoccuring "outgoing" of "45.00" as my "Water" from today to 6 months
     When I visit my monthly income in 6 months
     Then I should see my monthly outgoing as "45.0"
+
+  Scenario: I should be able to delete an income entry
+    Given I have a "2447.50" for "Salary" as "income" on "7th" of this month
+    When I view the the last create income entry
+    And I choose to remove the item
+    Then I should see the flash message "Successfully removed income entry"
+
