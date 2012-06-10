@@ -44,8 +44,8 @@ describe Income do
       @income1 = Income.create :type => "Salary", :amount => '2300.00'
       @income2 = Income.create :type => "Freelance", :amount => '100.00'
       expected = {
-        'salary' => [@income1],
-        'freelance' => [@income2]
+        'Salary' => [@income1],
+        'Freelance' => [@income2]
       }
       Income.monthly_breakdown_by_type.should eql expected
     end

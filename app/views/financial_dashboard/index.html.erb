@@ -1,3 +1,13 @@
+<% if @spent_the_most_on %>
+<p class="spent-most">
+  Spent the most on <%= @spent_the_most_on[:type] %>
+</p>
+<% end %>
+<% if @receive_the_most_from %>
+<p class="receive-most">
+  Receive the most from <%= @receive_the_most_from[:type] %>
+</p>
+<% end %>
 <ul id="income-types">
 <% @income_types.each do |type, items| %>
   <li class="<%= type %>"><%= type %> - <%= items.collect(&:amount).map(&:to_f).inject(&:+) %></li>
