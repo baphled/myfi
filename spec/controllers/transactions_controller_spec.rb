@@ -1,29 +1,29 @@
 require "spec_helper"
 
 describe TransactionsController do
+  let(:user) { User.create :email => 'y@me.com', :password => 'password', :password_confirmation => 'password' }
+
+  before do
+    controller.stub(:current_user).and_return user
+  end
+
   describe "GET new" do
     it "instantiates a new transaction" do
       Transaction.should_receive( :new )
       get :new
     end
     it "gets the total income" do
-      Income.should_receive( :monthly_total ).at_least( :once ).and_return 0.0
+      user.should_receive( :monthly_income ).at_least( :once ).and_return 0.0
       get :new
     end
 
     it "gets the total outgoing" do
-      Outgoing.should_receive( :monthly_total ).at_least(:once).and_return 0.0
+      user.should_receive( :monthly_outgoing ).at_least(:once).and_return 0.0
       get :new
     end
   end
 
   describe "POST create" do
-    let(:user) { User.create :email => 'y@me.com', :password => 'password', :password_confirmation => 'password' }
-
-    before do
-      controller.stub(:current_user).and_return user
-    end
-
     context "Adding income" do
       it "creates a new income entry" do
         income = Income.new

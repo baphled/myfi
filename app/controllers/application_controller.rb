@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
   private
 
   def monthly_totals
-    @monthly_income = Income.monthly_total
-    @monthly_outgoing = Outgoing.monthly_total
-    @monthly_total = Transaction.monthly_total
+    @monthly_income = current_user.monthly_income
+    @monthly_outgoing = current_user.monthly_outgoing
+    @monthly_total = current_user.monthly_total
   end
   
   helper_method :current_user
