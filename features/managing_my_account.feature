@@ -16,3 +16,9 @@ Feature: Managing my account
     And I fill in "Password" with "password"
     When I press "Signin"
     Then I should see the flash message "Successfully signed in"
+
+  Scenario: I should stay logged in
+    Given I am a registered user
+    And I am signed in to my account
+    When I am on my new transaction page
+    Then I should still be signed in
