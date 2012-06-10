@@ -4,6 +4,8 @@ gem 'rails',     :git => 'git://github.com/rails/rails.git', :branch => '3-2-sta
 gem 'journey',   :git => 'git://github.com/rails/journey.git'
 gem 'arel',      :git => 'git://github.com/rails/arel.git', :branch => '3-0-stable'
 
+gem 'bcrypt-ruby'
+
 gem 'mongoid'
 gem 'bson_ext'
 
