@@ -1,7 +1,7 @@
 Given /^I successfully fill in the signup form$/ do
-  fill_in "email", :with => 'y@me.com'
-  fill_in "password", :with => 'password'
-  fill_in "password_confirmation", :with => 'password'
+  fill_in "Email", :with => 'y@me.com'
+  fill_in "Password", :with => 'password'
+  fill_in "Password confirmation", :with => 'password'
 end
 
 When /^submit the signup form$/ do
@@ -10,6 +10,10 @@ end
 
 Given /^I am a registered user$/ do
   User.create :email => 'y@me.com', :password => 'password', :password_confirmation => 'password'
+end
+
+Given /^I am on the signup page$/ do
+  visit new_users_path
 end
 
 Given /^I am on the login page$/ do

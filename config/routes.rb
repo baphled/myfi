@@ -4,4 +4,5 @@ MyFi::Application.routes.draw do
   resources :outgoings, :only => [:create]
   resources :financial_breakdown, :only => [:index]
   resource :session, :only => [:new, :create, :destroy]
+  resource :users
 end
