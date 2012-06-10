@@ -9,6 +9,17 @@ class OutgoingsController < ApplicationController
       render '/transactions/new'
     end
   end
+
+  def show
+    @outgoing = current_user.outgoing_entries.find params[:id]
+  end
+
+  def destroy
+    outgoing = current_user.outgoing_entries.find params[:id]
+    if outgoing.delete
+      redirect_to dashboard_path, :notice => 'Successfully removed outgoing entry'
+    end
+  end
 end
 
 

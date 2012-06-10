@@ -66,3 +66,8 @@ Feature: Transactions
     And I choose to remove the item
     Then I should see the flash message "Successfully removed income entry"
 
+  Scenario: I should be able to delete an outgoing entry
+    Given I have a "6.50" for "Fast food" as "outgoing" on "7th" of this month
+    When I view the the last create outgoing entry
+    And I choose to remove the item
+    Then I should see the flash message "Successfully removed outgoing entry"
