@@ -1,0 +1,11 @@
+<ul id="income-types">
+<% @income_types.each do |type, items| %>
+  <li class="<%= type %>"><%= type %> - <%= items.collect(&:amount).map(&:to_f).inject(&:+) %></li>
+<% end %>
+</ul>
+
+<ul id="outgoing-types">
+<% @outgoing_type.each do |type, items| %>
+  <li class="<%= type.parameterize %>"><%= type %> - <%= items.collect(&:amount).map(&:to_f).inject(&:+) %></li>
+<% end %>
+</ul>

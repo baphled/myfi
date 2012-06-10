@@ -34,4 +34,20 @@ describe Income do
       Income.monthly_breakdown.to_a.should eql [@income]
     end
   end
+
+  describe "#monthly_breakdown_by_type" do
+    it "returns a list of income" do
+      Income.monthly_breakdown_by_type.should be_an Hash
+    end
+
+    it "it groups results by type" do
+      @income1 = Income.create :type => "Salary", :amount => '2300.00'
+      @income2 = Income.create :type => "Freelance", :amount => '100.00'
+      expected = {
+        'salary' => [@income1],
+        'freelance' => [@income2]
+      }
+      Income.monthly_breakdown_by_type.should eql expected
+    end
+  end
 end

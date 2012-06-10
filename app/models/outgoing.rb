@@ -32,4 +32,8 @@ class Outgoing
   def self.monthly_breakdown
     where(:created_at => Date.today.at_beginning_of_month..Date.today.at_end_of_month)
   end
+
+  def self.monthly_breakdown_by_type
+    this_month.group_by { |item| item.type }
+  end
 end

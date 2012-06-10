@@ -21,6 +21,15 @@ When /^I add my "(.*?)" at "(.*?)" as my "(.*?)" for next month$/ do |type, amou
   click_button transaction_type.capitalize
 end
 
+Given /^I have a "(.*?)" for "(.*?)" as "(.*?)" on "(.*?)" of this month$/ do |amount, description, transaction_type, date_this_month|
+  visit new_transaction_path
+  fill_in "Type", :with => description
+  fill_in "Amount", :with => amount
+  fill_in "Created at", :with => Date.today.at_beginning_of_month + date_this_month.to_i.days
+  click_button transaction_type.capitalize
+end
+
+
 When /^I add a reoccuring "(.*?)" of "(.*?)" as my "(.*?)" from today to 6 months$/ do |transaction_type, amount, type|
   fill_in "Type", :with => type
   fill_in "Amount", :with => amount
