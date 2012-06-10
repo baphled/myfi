@@ -20,6 +20,8 @@ class Outgoing
   validates_presence_of :starting_from, :if => :reoccuring?
   validates_presence_of :reoccuring_until, :if => :reoccuring?
 
+  belongs_to :user
+
   def self.this_month month = Time.now
     any_of(
       { :reoccuring_until.lte => month.to_time.utc, :reoccuring => true },
