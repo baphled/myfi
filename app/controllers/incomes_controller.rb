@@ -2,7 +2,7 @@ class IncomesController < ApplicationController
   before_filter :monthly_totals
 
   def create
-    @transaction = Transaction.add params[:commit], params[:income]
+    @transaction = current_user.add_transaction params[:commit], params[:transaction]
     if @transaction.valid?
       redirect_to new_transaction_path
     else

@@ -18,10 +18,16 @@ describe TransactionsController do
   end
 
   describe "POST create" do
+    let(:user) { User.create :email => 'y@me.com', :password => 'password', :password_confirmation => 'password' }
+
+    before do
+      controller.stub(:current_user).and_return user
+    end
+
     context "Adding income" do
       it "creates a new income entry" do
         income = Income.new
-        Transaction.should_receive( :add )
+        user.should_receive( :add_transaction )
           .with('Income', { 'type' => 'Salary', 'amount' => '2400.00' })
           .and_return income
         post :create, :transaction => {:type => 'Salary', :amount => '2400.00'}, :commit => 'Income'
@@ -31,7 +37,7 @@ describe TransactionsController do
     context "Adding outgoing" do
       it "creates a new outgoing entry" do
         outgoing = Outgoing.new
-        Transaction.should_receive( :add )
+        user.should_receive( :add_transaction )
           .with('Outgoing', { 'type' => 'Phone bill', 'amount' => '120.00' })
           .and_return outgoing
         post :create, :transaction => {:type => 'Phone bill', :amount => '120.00'}, :commit => 'Outgoing'

@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = Transaction.add params[:commit], params[:transaction]
+    @transaction = current_user.add_transaction params[:commit], params[:transaction]
     if @transaction.valid?
       redirect_to new_transaction_path
     else

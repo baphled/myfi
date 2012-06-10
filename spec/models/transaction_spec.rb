@@ -23,6 +23,7 @@ describe Transaction do
       Transaction.add 'outgoing', params
     end
   end
+
   describe "#monthly_total" do
     context "with income" do
       let( :income ) { Income.create :type => 'Salary', :amount => '2400.00' }

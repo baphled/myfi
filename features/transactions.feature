@@ -3,6 +3,10 @@ Feature: Transactions
   As a user
   I want to be able to easily submit my month going in and out
 
+  Background:
+    Given I am a registered user
+    And I am signed in to my account
+
   Scenario: I should be able to enter my income
     Given I am on my new transaction page
     When I add my "Salary" at "2200.00" as my "income"

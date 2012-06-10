@@ -13,7 +13,7 @@ class User
   has_many :outgoing_entries, :class_name => 'Outgoing'
 
   def add_transaction transaction_type, params = {}
-    send("#{ transaction_type }_entries".to_sym).create params
+    send("#{ transaction_type }_entries".downcase.to_sym).create params
   end
 
   def monthly_income
