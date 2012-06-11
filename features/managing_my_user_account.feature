@@ -1,4 +1,4 @@
-Feature: Managing my account
+Feature: Managing my user account
   In order to manage my Financial needs
   As a user
   I need to be able to create an account and manage it
