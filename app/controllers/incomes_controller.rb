@@ -10,6 +10,19 @@ class IncomesController < ApplicationController
     end
   end
 
+  def edit
+    @income = current_user.income_entries.find params[:id]
+  end
+
+  def update
+    @income = current_user.income_entries.find params[:id]
+    if @income.update_attributes params[:income]
+      redirect_to financial_breakdown_index
+    else
+      render :edit
+    end
+  end
+
   def show
     @income = current_user.income_entries.find params[:id]
   end

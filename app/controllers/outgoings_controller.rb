@@ -10,6 +10,19 @@ class OutgoingsController < ApplicationController
     end
   end
 
+  def edit
+    @outgoing = current_user.outgoing_entries.find params[:id]
+  end
+
+  def update
+    @outgoing = current_user.outgoing_entries.find params[:id]
+    if @outgoing.update_attributes params[:outgoing]
+      redirect_to financial_breakdown_index
+    else
+      render :edit
+    end
+  end
+
   def show
     @outgoing = current_user.outgoing_entries.find params[:id]
   end

@@ -4,7 +4,11 @@
     <h2>Income</h2>
     <ul id="income-breakdown">
       <% @income_breakdown.each do |income| %>
-        <li class="income"><%= income.type %> - <%= income.amount.to_f %> - <%= income.created_at %>
+        <li class="income">
+          <%= income.type %> - <%= income.amount.to_f %> - <%= income.created_at %>
+          <span><%= link_to "x", income_path(income), :method => :delete %></span>
+          <span><%= link_to "edit", edit_income_path(income) %></span>
+        </li>
         <%end %>
       </ul>
       <hr />
@@ -13,8 +17,12 @@
     <div class="row span5">
       <h2>Outgoings</h2>
       <ul id="outgoing-breakdown">
-        <% @outgoing_breakdown.each do |income| %>
-          <li class="outgoing"><%= income.type %> - <%= income.amount.to_f %> - <%= income.created_at %>
+        <% @outgoing_breakdown.each do |outgoing| %>
+          <li class="outgoing">
+            <%= outgoing.type %> - <%= outgoing.amount.to_f %> - <%= outgoing.created_at %>
+            <span><%= link_to "x", outgoing_path(outgoing), :method => :delete %></span>
+            <span><%= link_to "edit", edit_outgoing_path(outgoing) %></span>
+          </li>
         <%end %>
       </ul>
       <hr />
