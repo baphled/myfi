@@ -1,0 +1,19 @@
+<% content_for :js do %>
+  <%= javascript_include_tag :form %>
+<% end %>
+
+<%= simple_form_for transaction, :html => { :class => 'well' }, :defaults => { :input_html => {:class => 'span4'} } do |f| %>
+  <%= f.input :type %>
+  <%= f.input :amount %>
+
+  <%= f.input :created_at %>
+  <%= f.input :reoccuring, :as => :boolean %>
+
+  <fieldset class="reoccuring">
+    <%= f.input :starting_from %>
+    <%= f.input :reoccuring_until %>
+  </fieldset>
+
+  <%= f.button :submit, "Income" %>
+  <%= f.button :submit, "Outgoing" %>
+<% end %>
