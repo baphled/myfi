@@ -12,8 +12,4 @@ class Transaction
   def self.add transaction_type, params = {}
     transaction_type.capitalize.constantize.create params
   end
-
-  def self.monthly_total
-    Income.monthly_total - Outgoing.monthly_total
-  end
 end
