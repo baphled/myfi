@@ -10,4 +10,5 @@ MyFi::Application.routes.draw do
   match 'logout', :controller => 'sessions', :action => 'destroy'
   match 'login', :controller => 'sessions', :action => 'new'
   match 'dashboard', :controller => 'financial_dashboard', :action => 'index'
+  root :to => 'financial_dashboard#index'
 end
