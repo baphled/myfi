@@ -30,7 +30,7 @@ Given /^I have a "(.*?)" for "(.*?)" as "(.*?)" on "(.*?)" of this month$/ do |a
 end
 
 
-When /^I add a reoccuring "(.*?)" of "(.*?)" as my "(.*?)" from today to 6 months$/ do |transaction_type, amount, type|
+When /^I add a reoccurring "(.*?)" of "(.*?)" as my "(.*?)" from today to 6 months$/ do |transaction_type, amount, type|
   fill_in "Type", :with => type
   fill_in "Amount", :with => amount
   fill_in "Reoccuring until", :with => Date.today.advance( :months => 6)

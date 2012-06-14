@@ -1,8 +1,8 @@
-When /^I view the the last create income entry$/ do
+When /^I view the last create income entry$/ do
   visit income_path Income.last
 end
 
-When /^I view the the last create outgoing entry$/ do
+When /^I view the last create outgoing entry$/ do
   visit outgoing_path Outgoing.last
 end
 

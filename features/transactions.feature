@@ -48,27 +48,27 @@ Feature: Transactions
     And I add my "Outsourcing" at "1200.00" as my "outgoing"
     Then I should see my monthly total as "1000.0"
 
-  Scenario: I should be able to set a transaction as reoccuring
+  Scenario: I should be able to set a transaction as reoccurring
     Given I am on my new transaction page
-    When I add a reoccuring "income" of "2200.00" as my "Salary" from today to 6 months
+    When I add a reoccurring "income" of "2200.00" as my "Salary" from today to 6 months
     When I visit my monthly income in 6 months
     Then I should see my monthly income as "2200.0"
 
-  Scenario: I should be able to set an outgoing transaction as reoccuring
+  Scenario: I should be able to set an outgoing transaction as reoccurring
     Given I am on my new transaction page
-    When I add a reoccuring "outgoing" of "45.00" as my "Water" from today to 6 months
+    When I add a reoccurring "outgoing" of "45.00" as my "Water" from today to 6 months
     When I visit my monthly income in 6 months
     Then I should see my monthly outgoing as "45.0"
 
   Scenario: I should be able to delete an income entry
     Given I have a "2447.50" for "Salary" as "income" on "7th" of this month
-    When I view the the last create income entry
+    When I view the last create income entry
     And I choose to remove the item
     Then I should see the flash message "Successfully removed income entry"
 
   Scenario: I should be able to delete an outgoing entry
     Given I have a "6.50" for "Fast food" as "outgoing" on "7th" of this month
-    When I view the the last create outgoing entry
+    When I view the last create outgoing entry
     And I choose to remove the item
     Then I should see the flash message "Successfully removed outgoing entry"
 
