@@ -73,13 +73,6 @@ Feature: Transactions
     Then I should see the flash message "Successfully removed outgoing entry"
 
   @wip
-  Scenario: I should be able to create an infinitely reoccurring transaction
-    Given I have filled in "Type" with "Water bill"
-    And I have filled in "Amount" with "75.0"
-    And I click "Reoccurring"
-    And I click "Indefinitely"
-
-  @wip
   Scenario: I should be able to create a transaction that reoccurs bi-yearly
     Given I have filled in "Type" with "Water bill"
     And I have filled in "Amount" with "75.0"
