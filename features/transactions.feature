@@ -74,7 +74,8 @@ Feature: Transactions
 
   @wip
   Scenario: I should be able to create a transaction that reoccurs bi-yearly
-    Given I have filled in "Type" with "Water bill"
+    Given I am on my new transaction page
+    And I have filled in "Type" with "Water bill"
     And I have filled in "Amount" with "75.0"
     And I click "Reoccurring"
     And I click "bi-monthly"
@@ -89,7 +90,8 @@ Feature: Transactions
 
   @wip
   Scenario: I should be able to create a transaction that reoccurs quarterly
-    Given I have filled in "Type" with "Water bill"
+    Given I am on my new transaction page
+    And I have filled in "Type" with "Water bill"
     And I have filled in "Amount" with "75.0"
     And I click "Reoccurring"
     And I click "bi-monthly"
