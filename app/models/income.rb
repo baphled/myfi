@@ -8,6 +8,7 @@ class Income
   field :reoccurring, :type => Boolean
   field :starting_from, :type => Date
   field :reoccurring_until, :type => Date
+  field :bi_monthly, :type => Boolean
 
   validates_presence_of :type
   validates_presence_of :amount
@@ -15,10 +16,10 @@ class Income
 
   validates_date :created_at, :allow_blank => true
   validates_date :starting_from, :if => :reoccurring?
-  validates_date :reoccurring_until, :if => :reoccurring?
+  validates_date :reoccurring_until, :if => :reoccurring?, :allow_blank => true
 
   validates_presence_of :starting_from, :if => :reoccurring?
-  validates_presence_of :reoccurring_until, :if => :reoccurring?
+  validates_presence_of :reoccurring_until, :if => :reoccurring?, :allow_blank => true
 
   belongs_to :user
 

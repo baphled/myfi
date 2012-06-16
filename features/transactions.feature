@@ -77,15 +77,16 @@ Feature: Transactions
     Given I am on my new transaction page
     And I have filled in "Type" with "Water bill"
     And I have filled in "Amount" with "75.0"
-    And I click "Reoccurring"
-    And I click "bi-monthly"
+    And I check "Reoccurring"
+    And I check "Bi monthly"
     And the transaction starts today
+    When I add my outgoing transaction
     Then I should see my monthly outgoing as "75.0"
 
     When I visit my monthly outgoing next month
     Then I should see my monthly outgoing as "0.0"
 
-    When I visit my monthly outgoing in 5 months time
+    When I visit my monthly outgoing in another months time
     Then I should see my monthly outgoing as "75.0"
 
   @wip
@@ -95,6 +96,7 @@ Feature: Transactions
     And I have filled in "Amount" with "75.0"
     And I click "Reoccurring"
     And I click "bi-monthly"
+    When I add my outgoing transaction
     And the transaction starts today
     Then I should see my monthly outgoing as "75.0"
 

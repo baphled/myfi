@@ -33,9 +33,9 @@ end
 When /^I add a reoccurring "(.*?)" of "(.*?)" as my "(.*?)" from today to 6 months$/ do |transaction_type, amount, type|
   fill_in "Type", :with => type
   fill_in "Amount", :with => amount
+  check 'Reoccurring'
   fill_in "Reoccurring until", :with => Date.today.advance( :months => 6)
   fill_in "Starting from", :with => Date.today
-  check 'Reoccurring'
   click_button transaction_type.capitalize
 end
 

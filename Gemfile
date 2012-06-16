@@ -13,6 +13,8 @@ gem "active_attr"
 gem 'simple_form'
 gem 'validates_timeliness'
 
+gem "recurrence", :require => "recurrence/namespace"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

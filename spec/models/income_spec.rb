@@ -50,4 +50,8 @@ describe Income do
       Income.monthly_breakdown_by_type.should eql expected
     end
   end
+
+  describe "validations" do
+    it "does not need a end date"
+  end
 end
