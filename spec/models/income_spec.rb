@@ -12,15 +12,15 @@ describe Income do
       Income.this_month.should be_empty
     end
 
-    context "there is an reoccuring income" do
-      it "see a reoccuring income" do
-        @income = Income.create :type => "Salary", :amount => '2300.00',:reoccuring => true, :starting_from => Time.now, :reoccuring_until => Time.now.advance(:months => 6) 
+    context "there is an reoccurring income" do
+      it "see a reoccurring income" do
+        @income = Income.create :type => "Salary", :amount => '2300.00',:reoccurring => true, :starting_from => Time.now, :reoccurring_until => Time.now.advance(:months => 6) 
         start_of_the_month = Time.now.advance :months => 6
         Income.this_month(start_of_the_month).to_a.should include @income
       end
 
-      it "sees the reoccuring income after 6 months have passed" do
-        @income = Income.create :type => "Salary", :amount => '2300.00',:reoccuring => true, :starting_from => Time.now, :reoccuring_until => Time.now.advance(:months => 6) 
+      it "sees the reoccurring income after 6 months have passed" do
+        @income = Income.create :type => "Salary", :amount => '2300.00',:reoccurring => true, :starting_from => Time.now, :reoccurring_until => Time.now.advance(:months => 6) 
         start_of_the_month = Time.now.advance :months => 6
         Timecop.freeze start_of_the_month
         Income.this_month.to_a.should include @income

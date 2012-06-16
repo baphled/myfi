@@ -7,11 +7,11 @@
   <%= f.input :amount %>
 
   <%= f.input :created_at %>
-  <%= f.input :reoccuring, :as => :boolean %>
+  <%= f.input :reoccurring, :as => :boolean, :input_html => {:class => 'reoccurring-check'} %>
 
-  <fieldset class="reoccuring">
+  <fieldset class="reoccurring">
     <%= f.input :starting_from %>
-    <%= f.input :reoccuring_until %>
+    <%= f.input :reoccurring_until %>
   </fieldset>
 
   <%= f.button :submit, "Income" %>

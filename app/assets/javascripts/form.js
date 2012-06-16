@@ -1,9 +1,9 @@
 $(function() {
-  $('.reoccuring').hide();
-  $('#outgoing_reoccuring').click(
+  $('.reoccurring').hide();
+  $('#income_reoccurring, #outgoing_reoccurring, #transaction_reoccurring').click(
     function(e) {
       e.preventDefault();
-      $('.reoccuring').fadeToggle();
+      $('.reoccurring').fadeToggle();
     }
   )
 });

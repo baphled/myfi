@@ -5,26 +5,26 @@ class Outgoing
   field :type
   field :amount
 
-  field :reoccuring, :type => Boolean
+  field :reoccurring, :type => Boolean
   field :starting_from, :type => Date
-  field :reoccuring_until, :type => Date
+  field :reoccurring_until, :type => Date
 
   validates_presence_of :type
   validates_presence_of :amount
   validates_numericality_of :amount
   
   validates_date :created_at, :allow_blank => true
-  validates_date :starting_from, :if => :reoccuring?
-  validates_date :reoccuring_until, :if => :reoccuring?
+  validates_date :starting_from, :if => :reoccurring?
+  validates_date :reoccurring_until, :if => :reoccurring?
 
-  validates_presence_of :starting_from, :if => :reoccuring?
-  validates_presence_of :reoccuring_until, :if => :reoccuring?
+  validates_presence_of :starting_from, :if => :reoccurring?
+  validates_presence_of :reoccurring_until, :if => :reoccurring?
 
   belongs_to :user
 
   def self.this_month month = Time.now
     any_of(
-      { :reoccuring_until.lte => month.to_time.utc, :reoccuring => true },
+      { :reoccurring_until.lte => month.to_time.utc, :reoccurring => true },
       { :created_at => Date.today.at_beginning_of_month..Date.today.at_end_of_month }
     )
   end
