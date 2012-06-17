@@ -72,36 +72,6 @@ Feature: Transactions
     And I choose to remove the item
     Then I should see the flash message "Successfully removed outgoing entry"
 
-  Scenario: I should be able to create a transaction that reoccurs bi-yearly
-    Given I am on my new transaction page
-    And I have filled in "Type" with "Water bill"
-    And I have filled in "Amount" with "75.0"
-    And I check "Bi monthly"
-    And the transaction starts today
-    When I add my outgoing transaction
-    Then I should see my monthly outgoing as "75.0"
-
-    When I visit my monthly outgoing next month
-    Then I should see my monthly outgoing as "0.0"
-
-    When I visit my monthly outgoing in another months time
-    Then I should see my monthly outgoing as "75.0"
-
-  Scenario: I should be able to create an income transaction that reoccurs bi-yearly
-    Given I am on my new transaction page
-    And I have filled in "Type" with "Freelance"
-    And I have filled in "Amount" with "175.0"
-    And I check "Bi monthly"
-    And the transaction starts today
-    When I add my income transaction
-    Then I should see my monthly income as "175.0"
-
-    When I visit my monthly income next month
-    Then I should see my monthly income as "0.0"
-
-    When I visit my monthly income in another months time
-    Then I should see my monthly income as "175.0"
-
   @wip
   Scenario: I should be able to create an income transaction that reoccurs quarterly
     Given I am on my new transaction page
