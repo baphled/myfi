@@ -12,6 +12,22 @@ describe Income do
       Income.this_month.should be_empty
     end
 
+    context "bi monthly transactions" do
+      before :each do
+        @income = Income.create! :type => 'Food', :amount => '5.0', :bi_monthly => true
+      end
+
+      it "returns empty if it does not fall on the given moth" do
+        Timecop.freeze Date.today + 1.months
+        Income.this_month.to_a.should be_empty
+      end
+
+      it "returns reoccuring income that falls within the bi monthly range" do
+        Timecop.freeze Date.today + 2.months
+        Income.this_month.to_a.should include @income
+      end
+    end
+
     context "there is an reoccurring income" do
       it "see a reoccurring income" do
         @income = Income.create :type => "Salary", :amount => '2300.00',:reoccurring => true, :starting_from => Time.now, :reoccurring_until => Time.now.advance(:months => 6) 

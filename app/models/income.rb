@@ -35,6 +35,7 @@ class Income
   def self.this_month month = Time.now
     any_of(
       { :reoccurring_until.lte => month.to_time.utc, :reoccurring => true },
+      { :next_occurrence => month.at_beginning_of_month..month.at_end_of_month },
       { :created_at => Date.today.at_beginning_of_month..Date.today.at_end_of_month }
     )
   end
@@ -61,6 +62,6 @@ class Income
   def reoccurence
     @reoccurence ||= SimplesIdeias::Recurrence.new(:every => :month, :on => self.next_occurrence.day, :interval => :bimonthly, :starts => self.next_occurrence)
     self.next_occurrence = (created_at.to_date >= @reoccurence.next) ? @reoccurence.next! : @reoccurence.next
-    next_occurrence
+    self.next_occurrence
   end
 end
