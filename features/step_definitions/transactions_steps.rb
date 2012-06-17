@@ -3,8 +3,8 @@ Given /^I am on my new transaction page$/ do
 end
 
 When /^I visit my monthly income next month$/ do
-  start_of_the_month = Time.now.advance :months => 1
-  Timecop.freeze start_of_the_month
+  @time_travelled = Time.now.advance :months => 1
+  Timecop.freeze @time_travelled
   visit new_transaction_path
 end
 

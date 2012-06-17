@@ -29,3 +29,9 @@ When /^I visit my monthly outgoing in another months time$/ do
   Timecop.travel @time_travelled
   visit new_transaction_path
 end
+
+When /^I visit my monthly income in another months time$/ do
+  @time_travelled += 1.month
+  Timecop.travel @time_travelled
+  visit new_transaction_path
+end
