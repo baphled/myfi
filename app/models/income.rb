@@ -48,12 +48,6 @@ class Income
     this_month.group_by { |item| item.type }
   end
 
-  def self.receive_the_most_from
-    monthly_breakdown_by_type.collect { |type, items|
-      { :type => type, :amount => items.collect(&:amount).map(&:to_f).inject(&:+) }
-    }.sort { |a,b| a[1] <=> b[1] }.first
-  end
-
   def next_transaction
     return created_at.to_date if not bi_monthly? and not @next_occurrence == created_at.to_date
     reoccurence
@@ -63,5 +57,11 @@ class Income
     @reoccurence ||= SimplesIdeias::Recurrence.new(:every => :month, :on => self.next_occurrence.day, :interval => :bimonthly, :starts => self.next_occurrence)
     self.next_occurrence = (created_at.to_date >= @reoccurence.next) ? @reoccurence.next! : @reoccurence.next
     self.next_occurrence
+  end
+
+  def self.receive_the_most_from
+    monthly_breakdown_by_type.collect { |type, items|
+      { :type => type, :amount => items.collect(&:amount).map(&:to_f).inject(&:+) }
+    }.sort { |a,b| a[1] <=> b[1] }.first
   end
 end
