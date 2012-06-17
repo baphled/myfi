@@ -21,12 +21,19 @@ describe Outgoing do
     it "returns income with the given month"
     it "returns reoccuring income that falls within the given month"
     context "bi monthly transactions" do
-      let( :outgoing ) { Outgoing.create! :type => 'Food', :amount => '5.0', :bi_monthly => true}
+
+      before :each do
+        @outgoing = Outgoing.create! :type => 'Food', :amount => '5.0', :bi_monthly => true
+      end
+
+      it "returns empty if it does not fall on the given moth" do
+        Timecop.freeze Date.today + 1.months
+        Outgoing.this_month.to_a.should be_empty
+      end
 
       it "returns reoccuring income that falls within the bi monthly range" do
-        Outgoing.this_month(Time.now.advance(:months => 1)).should be_empty
-        Outgoing.this_month(Time.now.advance(:months => 2)).should include outgoing
-        Outgoing.this_month(Time.now.advance(:months => 4)).should include outgoing
+        Timecop.freeze Date.today + 2.months
+        Outgoing.this_month.to_a.should include @outgoing
       end
     end
   end
