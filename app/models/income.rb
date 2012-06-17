@@ -2,13 +2,18 @@ class Income
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  after_save :reoccurence, :if => lambda {|o| o.bi_monthly? }
+
   field :type
   field :amount
 
   field :reoccurring, :type => Boolean
+  field :bi_monthly, :type => Boolean
   field :starting_from, :type => Date
   field :reoccurring_until, :type => Date
-  field :bi_monthly, :type => Boolean
+  field :next_occurrence, :type => Date, :default => Date.today + 2.months
+
+  attr_accessor :reoccurence
 
   validates_presence_of :type
   validates_presence_of :amount
@@ -42,5 +47,16 @@ class Income
     monthly_breakdown_by_type.collect { |type, items|
       { :type => type, :amount => items.collect(&:amount).map(&:to_f).inject(&:+) }
     }.sort { |a,b| a[1] <=> b[1] }.first
+  end
+
+  def next_transaction
+    return created_at.to_date if not bi_monthly? and not @next_occurrence == created_at.to_date
+    reoccurence
+  end
+
+  def reoccurence
+    @reoccurence ||= SimplesIdeias::Recurrence.new(:every => :month, :on => self.next_occurrence.day, :interval => :bimonthly, :starts => self.next_occurrence)
+    self.next_occurrence = (created_at.to_date >= @reoccurence.next) ? @reoccurence.next! : @reoccurence.next
+    next_occurrence
   end
 end

@@ -54,4 +54,19 @@ describe Income do
   describe "validations" do
     it "does not need a end date"
   end
+
+  describe "#next_transaction" do
+    let( :income ) { Income.create! :type => 'Food', :amount => '5.0', :bi_monthly => true}
+
+    it "returns when the next transaction occurs" do
+      income.next_transaction.should eql Time.now.advance(:months => 2).to_date
+    end
+
+    context "a month passes" do
+      it "sets the next transaction to the month after next" do
+        Timecop.travel income.created_at.advance(:months => 1)
+        income.next_transaction.should eql income.created_at.advance(:months => 2).to_date
+      end
+    end
+  end
 end
