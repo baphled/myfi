@@ -6,7 +6,7 @@ gem 'arel',      :git => 'git://github.com/rails/arel.git', :branch => '3-0-stab
 
 gem 'bcrypt-ruby'
 
-gem 'mongoid'
+gem 'mongoid', "~> 3.0.0.rc"
 gem 'bson_ext'
 
 gem "active_attr"
@@ -57,4 +57,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'cucumber'
   gem 'capybara'
+  gem 'database_cleaner'
 end
