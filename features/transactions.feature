@@ -88,21 +88,36 @@ Feature: Transactions
     Then I should see my monthly outgoing as "75.0"
 
   @wip
-  Scenario: I should be able to create a transaction that reoccurs quarterly
+  Scenario: I should be able to create an income transaction that reoccurs bi-yearly
     Given I am on my new transaction page
-    And I have filled in "Type" with "Water bill"
-    And I have filled in "Amount" with "75.0"
-    And I click "Reoccurring"
-    And I click "bi-monthly"
-    When I add my outgoing transaction
+    And I have filled in "Type" with "Freelance"
+    And I have filled in "Amount" with "175.0"
+    And I check "Bi monthly"
     And the transaction starts today
-    Then I should see my monthly outgoing as "75.0"
+    When I add my income transaction
+    Then I should see my monthly income as "175.0"
+
+    When I visit my monthly income next month
+    Then I should see my monthly income as "175.0"
+
+    When I visit my monthly income next month
+    Then I should see my monthly income as "175.0"
+
+  @wip
+  Scenario: I should be able to create an income transaction that reoccurs quarterly
+    Given I am on my new transaction page
+    And I have filled in "Type" with "Freelance"
+    And I have filled in "Amount" with "175.0"
+    And I click "bi-monthly"
+    When I add my income transaction
+    And the transaction starts today
+    Then I should see my monthly income as "175.0"
 
     When I visit my monthly outgoing next month
-    Then I should see my monthly outgoing as "0.0"
+    Then I should see my monthly income as "175.0"
 
     When I visit my monthly outgoing in 2 months time
-    Then I should see my monthly outgoing as "75.0"
+    Then I should see my monthly income as "175.0"
 
   @wip
   Scenario: I should be able to create a transaction that reoccurs x amount of months
