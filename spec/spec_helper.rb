@@ -33,4 +33,8 @@ RSpec.configure do |config|
   config.before :each do
     Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
   end
+
+  config.after :each do
+    Timecop.return
+  end
 end

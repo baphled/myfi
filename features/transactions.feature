@@ -72,12 +72,10 @@ Feature: Transactions
     And I choose to remove the item
     Then I should see the flash message "Successfully removed outgoing entry"
 
-  @wip
   Scenario: I should be able to create a transaction that reoccurs bi-yearly
     Given I am on my new transaction page
     And I have filled in "Type" with "Water bill"
     And I have filled in "Amount" with "75.0"
-    And I check "Reoccurring"
     And I check "Bi monthly"
     And the transaction starts today
     When I add my outgoing transaction

@@ -9,8 +9,9 @@
   <%= f.input :created_at %>
   <%= f.input :reoccurring, :as => :boolean, :input_html => {:class => 'reoccurring-check'} %>
 
+  <%= f.input :bi_monthly, :as => :boolean %>
+
   <fieldset class="reoccurring">
-    <%= f.input :bi_monthly, :as => :boolean %>
     <%= f.input :starting_from %>
     <%= f.input :reoccurring_until %>
   </fieldset>

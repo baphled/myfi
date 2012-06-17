@@ -2,8 +2,7 @@ class Outgoing
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  before_create :reoccurence, :if => lambda {|o| o.bi_monthly? }
-  before_update :reoccurence, :if => lambda {|o| o.bi_monthly? }
+  after_save :reoccurence, :if => lambda {|o| o.bi_monthly? }
 
   field :type
   field :amount
@@ -12,7 +11,7 @@ class Outgoing
   field :bi_monthly, :type => Boolean
   field :starting_from, :type => Date
   field :reoccurring_until, :type => Date
-  field :next_occurrence, :type => Date, :default => Date.today
+  field :next_occurrence, :type => Date, :default => Date.today + 2.months
 
   attr_accessor :reoccurence
 
@@ -29,9 +28,14 @@ class Outgoing
 
   belongs_to :user
 
+  def self.reoccurring_bi_monthly month = Time.now
+    where( :next_occurrence => month.at_beginning_of_month..month.at_end_of_month )
+  end
+
   def self.this_month month = Time.now
     any_of(
       { :reoccurring_until.lte => month.to_time.utc, :reoccurring => true },
+      { :next_occurrence => month.at_beginning_of_month..month.at_end_of_month },
       { :created_at => Date.today.at_beginning_of_month..Date.today.at_end_of_month }
     )
   end
@@ -51,15 +55,13 @@ class Outgoing
   end
 
   def next_transaction
-    return created_at.to_date if not bi_monthly? and next_occurrence == created_at.to_date
+    return created_at.to_date if not bi_monthly? and not @next_occurrence == created_at.to_date
     reoccurence
   end
 
-  protected
-
   def reoccurence
-    @reoccurence ||= SimplesIdeias::Recurrence.new(:every => :month, :on => next_occurrence.day, :interval => :bimonthly, :starts_on => created_at.to_date)
-    next_occurrence = (created_at.to_date <= @reoccurence.next) ? @reoccurence.next! : @reoccurence.next
+    @reoccurence ||= SimplesIdeias::Recurrence.new(:every => :month, :on => self.next_occurrence.day, :interval => :bimonthly, :starts => self.next_occurrence)
+    self.next_occurrence = (created_at.to_date >= @reoccurence.next) ? @reoccurence.next! : @reoccurence.next
     next_occurrence
   end
 end
