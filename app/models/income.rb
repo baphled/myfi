@@ -28,6 +28,10 @@ class Income
 
   belongs_to :user
 
+  def self.reoccurring_bi_monthly month = Time.now
+    where( :next_occurrence => month.at_beginning_of_month..month.at_end_of_month )
+  end
+
   def self.this_month month = Time.now
     any_of(
       { :reoccurring_until.lte => month.to_time.utc, :reoccurring => true },

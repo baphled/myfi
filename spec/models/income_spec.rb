@@ -69,4 +69,15 @@ describe Income do
       end
     end
   end
+
+  describe "#reoccurring_bi_monthly" do
+    let( :income ) { Income.create! :type => 'Food', :amount => '5.0', :bi_monthly => true}
+
+    context "current month is within the next transactional period" do
+      it "returns the transaction" do
+        Income.reoccurring_bi_monthly(Time.now.advance(:months => 1)).should be_empty
+        Income.reoccurring_bi_monthly(Time.now.advance(:months => 2)).should include income
+      end
+    end
+  end
 end
