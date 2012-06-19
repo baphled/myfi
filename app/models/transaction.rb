@@ -8,8 +8,13 @@ class Transaction
   attribute :reoccurring, :type => Boolean
   attribute :starting_from
   attribute :reoccurring_until
+
   attribute :bi_monthly, :type => Boolean
+
   attribute :quarterly, :type => Boolean
+
+  attribute :custom_range, :type => Boolean
+  attribute :reoccurring_months
 
   def self.add transaction_type, params = {}
     transaction_type.capitalize.constantize.create params

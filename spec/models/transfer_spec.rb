@@ -80,5 +80,16 @@ describe Transfer do
       it "returns the transfer"
     end
   end
+
+  describe "#reoccuring_custom_range" do
+    let( :transfer ) { Transfer.create! :type => 'Food', :amount => '5.0', :custom_range => true, :reoccurring_months => 5 }
+
+    it "next month is in 5 months time" do
+      transfer.next_transaction.should eql Date.today + 5.months
+    end
+    it "returns the transfer when within the initial transfer month" do
+      Transfer.reoccuring_quarterly(Time.now.advance(:months => 5)).should include transfer
+    end
+  end
 end
 

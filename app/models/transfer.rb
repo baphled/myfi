@@ -10,9 +10,13 @@ class Transfer
   field :reoccurring, :type => Boolean
   field :bi_monthly, :type => Boolean
   field :quarterly, :type => Boolean
+
+  field :custom_range, :type => Boolean
+  field :reoccurring_months
+
   field :starting_from, :type => Date
   field :reoccurring_until, :type => Date
-  field :next_occurrence, :type => Date, :default => lambda { ( bi_monthly? ) ? Date.today + 2.months : Date.today + 3.months }
+  field :next_occurrence, :type => Date, default: -> { default_next_reoccurence }
 
   attr_accessor :reoccurence
 
@@ -57,10 +61,35 @@ class Transfer
     reoccurence
   end
 
+  def reoccurence_type
+    if self.bi_monthly?
+      :bimonthly
+    elsif self.custom_range
+      self.reoccurring_months
+    else
+      :quarterly
+    end
+  end
+
   def reoccurence
-    reoccurence_type = self.bi_monthly? ? :bimonthly : :quarterly
     @reoccurence ||= SimplesIdeias::Recurrence.new(:every => :month, :on => self.created_at.day, :interval => reoccurence_type, :starts => self.created_at)
     self.next_occurrence = (created_at.to_date >= @reoccurence.next) ? @reoccurence.next! : @reoccurence.next
     self.next_occurrence
+  end
+
+  protected
+
+  def number_of_months_between_transactions
+    if bi_monthly?
+      2.months
+     elsif custom_range?
+       reoccurring_months.to_i.months
+    else
+      3.months
+    end
+  end
+
+  def default_next_reoccurence
+    Date.today + number_of_months_between_transactions
   end
 end

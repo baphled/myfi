@@ -11,6 +11,11 @@
 
   <%= f.input :bi_monthly, :as => :boolean %>
   <%= f.input :quarterly, :as => :boolean %>
+  <%= f.input :custom_range, :as => :boolean %>
+
+  <fieldset class="custom_range">
+    <%= f.input :reoccurring_months %>
+  </fieldset>
 
   <fieldset class="reoccurring">
     <%= f.input :starting_from %>

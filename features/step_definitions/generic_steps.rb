@@ -37,6 +37,7 @@ When /^I visit my monthly income in another months time$/ do
 end
 
 When /^I visit my monthly income in a total of (\d+) months$/ do |number_of|
+  Timecop.return
   @time_travelled = Date.today + number_of.to_i.months
   Timecop.travel @time_travelled
   visit new_transaction_path

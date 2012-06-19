@@ -32,7 +32,7 @@ When /^I add my (\d+) "(.*?)" at "(.*?)" as my "(.*?)"$/ do |months, type, amoun
   fill_in "Type", :with => type
   fill_in "Amount", :with => amount
   check 'Custom range'
-  fill_in "Months", :with => months
+  fill_in "Reoccurring months", :with => months
   click_button transaction_type.capitalize
 end
 
