@@ -71,6 +71,3 @@ Feature: Transactions
     When I view the last create outgoing entry
     And I choose to remove the item
     Then I should see the flash message "Successfully removed outgoing entry"
-
-  @wip
-  Scenario: I should be able to create a transaction that reoccurs x amount of months

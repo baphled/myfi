@@ -38,3 +38,23 @@ Feature: Reoccurring Transactions
       | transaction type | type       | amount | next month | 3 months |
       | outgoing         | Water Bill | 75.0   | 0.0        | 75.0     |
       | income           | Freelance  | 175.0  | 0.0        | 175.0    |
+
+  @wip
+  Scenario Outline: I should be able to create a transaction that reoccurs x amount of months
+    Given I am on my new transaction page
+    When I add my <x month> "<type>" at "<amount>" as my "<transaction type>"
+    Then I should see my monthly <transaction type> as "<amount>"
+
+    When I visit my monthly outgoing next month
+    Then I should see my monthly <transaction type> as "<next month>"
+
+    When I visit my monthly income in a total of <x month> months
+    Then I should see my monthly <transaction type> as "<3 months>"
+
+  Examples:
+      | x month | transaction type | type       | amount | next month | 3 months |
+      | 7       | outgoing         | Water Bill | 75.0   | 0.0        | 75.0     |
+      | 6       | outgoing         | Water Bill | 75.0   | 0.0        | 75.0     |
+      | 3       | income           | Freelance  | 175.0  | 0.0        | 175.0    |
+      | 8       | income           | Freelance  | 175.0  | 0.0        | 175.0    |
+      | 12      | income           | Freelance  | 175.0  | 0.0        | 175.0    |
