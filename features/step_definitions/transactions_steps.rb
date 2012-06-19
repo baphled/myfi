@@ -21,6 +21,12 @@ When /^I add my bi monthly "(.*?)" at "(.*?)" as my "(.*?)"$/ do |type, amount, 
   click_button transaction_type.capitalize
 end
 
+When /^I add my quarterly "(.*?)" at "(.*?)" as my "(.*?)"$/ do |type, amount, transaction_type|
+  fill_in "Type", :with => type
+  fill_in "Amount", :with => amount
+  check 'Quarterly'
+  click_button transaction_type.capitalize
+end
 When /^I add my "(.*?)" at "(.*?)" as my "(.*?)" for next month$/ do |type, amount, transaction_type|
   fill_in "Type", :with => type
   fill_in "Amount", :with => amount

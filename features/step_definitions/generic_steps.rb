@@ -35,3 +35,10 @@ When /^I visit my monthly income in another months time$/ do
   Timecop.travel @time_travelled
   visit new_transaction_path
 end
+
+When /^I visit my monthly income in a total of (\d+) months$/ do |arg1|
+  @time_travelled = 3.months
+  Timecop.travel @time_travelled
+  visit new_transaction_path
+end
+
