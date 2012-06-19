@@ -54,9 +54,30 @@ describe Transfer do
 
     context "current month is within the next transactional period" do
       it "returns the transaction" do
+        Transfer.reoccuring_quarterly.should be_empty
         Transfer.reoccurring_bi_monthly(Time.now.advance(:months => 1)).should be_empty
         Transfer.reoccurring_bi_monthly(Time.now.advance(:months => 2)).should include transfer
       end
+    end
+  end
+
+  describe "#reoccuring_quarterly" do
+    let( :transfer ) { Transfer.create! :type => 'Food', :amount => '5.0', :quarterly => true}
+
+    it "returns the transfer if within the initial transfer" do
+      Transfer.reoccuring_quarterly(Time.now.advance(:months => 3)).should include transfer
+    end
+
+    context "not within the next transfer month" do
+      it "is not returned" do
+        Transfer.reoccuring_quarterly.should be_empty
+        Transfer.reoccuring_quarterly(Time.now.advance(:months => 1)).should be_empty
+        Transfer.reoccuring_quarterly(Time.now.advance(:months => 2)).should be_empty
+      end
+    end
+
+    context "current month is equal to the first quarterly transfer" do
+      it "returns the transfer"
     end
   end
 end

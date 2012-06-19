@@ -23,14 +23,18 @@ Feature: Reoccurring Transactions
       | outgoing         | Water Bill | 75.0   | 0.0        | 75.0     |
       | income           | Freelance  | 175.0  | 0.0        | 175.0    |
 
-  @wip
-  Scenario: I should be able to create an income transaction that reoccurs quarterly
+  Scenario Outline: I should be able to create a transaction that reoccurs quarterly
     Given I am on my new transaction page
-    When I add my quarterly "Freelance" at "175.0" as my "income"
-    Then I should see my monthly income as "175.0"
+    When I add my quarterly "<type>" at "<amount>" as my "<transaction type>"
+    Then I should see my monthly <transaction type> as "<amount>"
 
     When I visit my monthly outgoing next month
-    Then I should see my monthly income as "0.0"
+    Then I should see my monthly <transaction type> as "<next month>"
 
     When I visit my monthly income in a total of 3 months
-    Then I should see my monthly income as "175.0"
+    Then I should see my monthly <transaction type> as "<3 months>"
+
+  Examples:
+      | transaction type | type       | amount | next month | 3 months |
+      | outgoing         | Water Bill | 75.0   | 0.0        | 75.0     |
+      | income           | Freelance  | 175.0  | 0.0        | 175.0    |
