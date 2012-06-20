@@ -32,7 +32,6 @@ describe Transfer do
     end
 
     context "bi monthly transactions" do
-
       before :each do
         @transfer = Transfer.create! :type => 'Food', :amount => '5.0', :bi_monthly => true
       end
