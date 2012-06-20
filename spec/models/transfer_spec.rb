@@ -1,29 +1,36 @@
 require "spec_helper"
 
 describe Transfer do
-  describe "#next_transaction" do
+  describe "#next_occurrence" do
     let( :transfer ) { Transfer.create! :type => 'Food', :amount => '5.0', :bi_monthly => true}
 
     it "returns when the next transaction occurs" do
-      transfer.next_transaction.should eql Time.now.advance(:months => 2).to_date
+      transfer.next_occurrence.should eql Time.now.advance(:months => 2).to_date
     end
 
     context "a month passes" do
       it "sets the next transaction to the month after next" do
         Timecop.travel transfer.created_at.advance(:months => 1)
-        transfer.next_transaction.should eql transfer.created_at.advance(:months => 2).to_date
+        transfer.next_occurrence.should eql transfer.created_at.advance(:months => 2).to_date
       end
     end
   end
 
   describe "#this_month" do
+    let( :transfer ) { Transfer.create! :type => 'Food', :amount => '5.0', :bi_monthly => true }
+
     it "returns income from this month"
     it "returns income with the given month"
-    it "returns reoccuring income that falls within the given month"
 
-    it "returns income for created this month" do
-      Income.should_receive(:any_of)
-      Income.this_month
+    context "4 months pass" do
+      before :each do
+        Timecop.travel transfer.created_at.advance(:months => 4)
+        ReoccurringTransfer.update_next_occurring
+      end
+
+      it "returns reoccuring income that falls within the given month" do
+        Transfer.this_month.to_a.should_not be_empty
+      end
     end
 
     it "is empty when an income is not within the start of the month" do
@@ -83,10 +90,8 @@ describe Transfer do
   describe "#reoccuring_custom_range" do
     let( :transfer ) { Transfer.create! :type => 'Food', :amount => '5.0', :custom_range => true, :reoccurring_months => 5 }
 
-    it "next month is in 5 months time" do
-      transfer.next_transaction.should eql Date.today + 5.months
-    end
     it "returns the transfer when within the initial transfer month" do
+      transfer.next_occurrence.should eql Date.today + 5.months
       Transfer.reoccuring_quarterly(Time.now.advance(:months => 5)).should include transfer
     end
   end

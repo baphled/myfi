@@ -2,6 +2,10 @@ Given /^I am on my new transaction page$/ do
   visit new_transaction_path
 end
 
+Given /^all tranfers have their next occurring transaction updated$/ do
+  ReoccurringTransfer.update_next_occurring
+end
+
 When /^I visit my monthly income next month$/ do
   @time_travelled = Time.now.advance :months => 1
   Timecop.freeze @time_travelled

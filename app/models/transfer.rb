@@ -10,7 +10,7 @@ class Transfer
   field :quarterly, :type => Boolean
 
   field :custom_range, :type => Boolean
-  field :reoccurring_months
+  field :reoccurring_months, :type => Integer
 
   field :starting_from, :type => Date
   field :reoccurring_until, :type => Date
@@ -35,6 +35,14 @@ class Transfer
     where( :next_occurrence => month.at_beginning_of_month..month.at_end_of_month )
   }
 
+  scope :find_next_occurring_transactions, ->{
+    any_of(
+      {:bi_monthly => true },
+      {:quarterly => true },
+      {:custom_range => true }
+    )
+  }
+
   scope :reoccuring_quarterly, ->( month = Time.now ) {
     where( :next_occurrence => month.at_beginning_of_month..month.at_end_of_month )
   }
@@ -55,23 +63,20 @@ class Transfer
     this_month.group_by { |item| item.type }
   end
 
-  def next_transaction
-    next_occurrence
-  end
-
   def reoccurence_type
     if self.bi_monthly?
       :bimonthly
-    elsif self.custom_range
+    elsif self.custom_range?
       self.reoccurring_months
     else
       :quarterly
     end
   end
 
-  def next_occurrence
-    @reoccurence ||= SimplesIdeias::Recurrence.new(:every => :month, :on => self.created_at.day, :interval => reoccurence_type, :starts => self.created_at)
-    self.next_occurrence = (created_at.to_date >= @reoccurence.next) ? @reoccurence.next! : @reoccurence.next
+  def next_occurrence!
+    reoccurrence = SimplesIdeias::Recurrence.new(:every => :month, :on => self.created_at.day, :interval => reoccurence_type)
+    update_attribute :next_occurrence, reoccurrence.next
+    next_occurrence
   end
 
   protected

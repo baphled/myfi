@@ -57,3 +57,23 @@ Feature: Reoccurring Transactions
       | 3       | income           | Freelance  | 175.0  | 0.0        | 175.0         |
       | 8       | income           | Freelance  | 175.0  | 0.0        | 175.0         |
       | 12      | income           | Freelance  | 175.0  | 0.0        | 175.0         |
+
+  Scenario Outline: I should still see my transaction after the first reoccurrence
+    Given I am on my new transaction page
+    When I add my <reoccurring months> "<type>" at "<amount>" as my "<transaction type>"
+    Then I should see my monthly <transaction type> as "<amount>"
+
+    When I visit my monthly outgoing next month
+    Then I should see my monthly <transaction type> as "<next month>"
+
+    Given it is <total number of> months later
+    When I visit my monthly income
+    And all tranfers have their next occurring transaction updated
+    And I visit my monthly income
+    Then I should see my monthly <transaction type> as "<amount after total months>"
+
+  Examples:
+      | reoccurring months | total number of | transaction type | type       | amount | next month | amount after total months |
+      | 3                  | 6               | income           | Freelance  | 175.0  | 0.0        | 175.0                     |
+      | 6                  | 12              | outgoing         | Water Bill | 75.0   | 0.0        | 75.0                      |
+      | 12                 | 24              | income           | Freelance  | 175.0  | 0.0        | 175.0                     |
