@@ -1,4 +1,4 @@
-class Outgoing < Transfer
+class Outgoing < Transaction
   def self.spent_the_most_on
     monthly_breakdown_by_type.collect { |type, items|
       { :type => type, :amount => items.collect(&:amount).map(&:to_f).inject(&:+) }

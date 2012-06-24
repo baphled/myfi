@@ -3,7 +3,7 @@ Given /^I am on my new transaction page$/ do
 end
 
 Given /^all tranfers have their next occurring transaction updated$/ do
-  ReoccurringTransfer.update_next_occurring
+  ReoccurringTransaction.update_next_occurring
 end
 
 When /^I visit my monthly income next month$/ do

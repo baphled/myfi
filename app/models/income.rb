@@ -1,4 +1,4 @@
-class Income < Transfer
+class Income < Transaction
   def self.receive_the_most_from
     monthly_breakdown_by_type.collect { |type, items|
       { :type => type, :amount => items.collect(&:amount).map(&:to_f).inject(&:+) }
