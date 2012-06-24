@@ -7,8 +7,6 @@ class User
   field :password_digest, :type => String
   has_secure_password
 
-  has_one :transaction
-
   has_many :income_entries, :class_name => 'Income'
   has_many :outgoing_entries, :class_name => 'Outgoing'
 
