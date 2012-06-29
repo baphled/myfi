@@ -23,14 +23,14 @@ Feature: Manage my transactional accounts
       | savings account |
 
   @wip
-  Scenario: Credit card account need a credit limit
+  Scenario: Credit card accounts need a credit limit
     Given I am on the new accounts page
     When I select a credit card account
     And I fill in my account details
     Then I should see the flash message "You need to add a credit limit"
 
   @wip
-  Scenario: Credit card account must have interest rates
+  Scenario: Credit card accounts must have an interest rate set
     Given I am on the new accounts page
     When I select a "credit card" account
     And I fill in my credit card account details without my APR
