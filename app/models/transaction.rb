@@ -16,8 +16,6 @@ class Transaction
   field :reoccurring_until, :type => Date
   field :next_occurrence, :type => Date, default: -> { default_next_reoccurence }
 
-  attr_accessor :reoccurence
-
   validates_presence_of :type
   validates_presence_of :amount
   validates_numericality_of :amount
@@ -31,8 +29,8 @@ class Transaction
 
   belongs_to :user
 
-  scope :reoccurring_bi_monthly, ->(month = Time.now) {
-    where( :next_occurrence => month.at_beginning_of_month..month.at_end_of_month )
+  scope :reoccurring_bi_monthly, ->{
+    where( :next_occurrence => current_time.at_beginning_of_month..current_time.at_end_of_month )
   }
 
   scope :find_next_occurring_transactions, ->{
@@ -43,24 +41,32 @@ class Transaction
     )
   }
 
-  scope :reoccuring_quarterly, ->( month = Time.now ) {
-    where( :next_occurrence => month.at_beginning_of_month..month.at_end_of_month )
+  scope :reoccuring_quarterly, -> {
+    where( :next_occurrence => current_time.at_beginning_of_month..current_time.at_end_of_month )
   }
 
-  scope :this_month, ->( month = Time.now ) {
+  scope :this_month, -> {
     any_of(
-      { :reoccurring_until.lte => month.to_time.utc, :reoccurring => true },
-      { :next_occurrence => month.at_beginning_of_month..month.at_end_of_month },
-      { :created_at => month.at_beginning_of_month..month.at_end_of_month }
+      { :reoccurring_until.lte => current_time.to_time.utc, :reoccurring => true },
+      { :next_occurrence => current_time.at_beginning_of_month..current_time.at_end_of_month },
+      { :created_at => current_time.at_beginning_of_month..current_time.at_end_of_month }
     )
   }
 
   scope :monthly_breakdown, -> {
-    where(:created_at => Date.today.at_beginning_of_month..Date.today.at_end_of_month)
+    where(:created_at => current_time.at_beginning_of_month..current_time.at_end_of_month)
   }
+
+  def self.current_time
+    Time.now
+  end
 
   def self.monthly_breakdown_by_type
     this_month.group_by { |item| item.type }
+  end
+
+  def self.monthly_total
+    this_month.collect(&:amount).map(&:to_f).inject(&:+)
   end
 
   def reoccurence_type

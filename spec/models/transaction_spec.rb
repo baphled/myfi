@@ -65,29 +65,51 @@ describe Transaction do
   end
 
   describe "#reoccurring_bi_monthly" do
-    let( :transaction ) { Transaction.create! :type => 'Food', :amount => '5.0', :bi_monthly => true}
 
     context "current month is within the next transactional period" do
+      before :each do
+        @transaction = Transaction.create! :type => 'Food', :amount => '5.0', :bi_monthly => true
+      end
       it "returns the transaction" do
         Transaction.reoccuring_quarterly.should be_empty
-        Transaction.reoccurring_bi_monthly(Time.now.advance(:months => 1)).should be_empty
-        Transaction.reoccurring_bi_monthly(Time.now.advance(:months => 2)).should include transaction
+      end
+      it "doesn't return the transaction in 1 months" do
+        Timecop.freeze Time.now.advance(:months => 1)
+        Transaction.reoccurring_bi_monthly.should be_empty
+      end
+
+      it "returns the transaction in 2 months" do
+        Timecop.freeze Time.now.advance(:months => 2)
+        Transaction.reoccurring_bi_monthly.should include @transaction
       end
     end
   end
 
   describe "#reoccuring_quarterly" do
-    let( :transaction ) { Transaction.create! :type => 'Food', :amount => '5.0', :quarterly => true}
+    let( :transaction ) { Transaction.create! :type => 'Food', :amount => '5.0', :quarterly => true }
+
+    before :each do
+      transaction.next_occurrence.should_not be_nil
+    end
 
     it "returns the transaction if within the initial transaction" do
-      Transaction.reoccuring_quarterly(Time.now.advance(:months => 3)).should include transaction
+      Timecop.freeze Date.today + 3.months
+      Transaction.reoccuring_quarterly.should include transaction
     end
 
     context "not within the next transaction month" do
       it "is not returned" do
         Transaction.reoccuring_quarterly.should be_empty
-        Transaction.reoccuring_quarterly(Time.now.advance(:months => 1)).should be_empty
-        Transaction.reoccuring_quarterly(Time.now.advance(:months => 2)).should be_empty
+      end
+
+      it "doesn't not return the transaction in 1 months time" do
+        Timecop.freeze Date.today + 1.months
+        Transaction.reoccuring_quarterly.should be_empty
+      end
+
+      it "doesn't not return the transaction in 1 months time" do
+        Timecop.freeze Date.today + 2.months
+        Transaction.reoccuring_quarterly.should be_empty
       end
     end
 
@@ -101,7 +123,8 @@ describe Transaction do
 
     it "returns the transaction when within the initial transaction month" do
       transaction.next_occurrence.should eql Date.today + 5.months
-      Transaction.reoccuring_quarterly(Time.now.advance(:months => 5)).should include transaction
+      Timecop.freeze Date.today + 5.months
+      Transaction.reoccuring_quarterly.should include transaction
     end
   end
 end

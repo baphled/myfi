@@ -15,11 +15,11 @@ class User
   end
 
   def monthly_income
-    income_entries.this_month.empty? ? 0.0 : income_entries.this_month.collect(&:amount).map(&:to_f).inject(&:+)
+    income_entries.this_month.empty? ? 0.0 : income_entries.monthly_total
   end
 
   def monthly_outgoing
-    outgoing_entries.this_month.empty? ? 0.0 : outgoing_entries.this_month.collect(&:amount).map(&:to_f).inject(&:+)
+    outgoing_entries.this_month.empty? ? 0.0 : outgoing_entries.monthly_total
   end
 
   def monthly_total
