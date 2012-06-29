@@ -30,7 +30,7 @@ class Transaction
   belongs_to :user
 
   scope :reoccurring_bi_monthly, ->{
-    where( :next_occurrence => current_time.at_beginning_of_month..current_time.at_end_of_month )
+    where( :next_occurrence => current_month_range )
   }
 
   scope :find_next_occurring_transactions, ->{
@@ -42,23 +42,27 @@ class Transaction
   }
 
   scope :reoccuring_quarterly, -> {
-    where( :next_occurrence => current_time.at_beginning_of_month..current_time.at_end_of_month )
+    where( :next_occurrence => current_month_range )
   }
 
   scope :this_month, -> {
     any_of(
       { :reoccurring_until.lte => current_time.to_time.utc, :reoccurring => true },
-      { :next_occurrence => current_time.at_beginning_of_month..current_time.at_end_of_month },
-      { :created_at => current_time.at_beginning_of_month..current_time.at_end_of_month }
+      { :next_occurrence => current_month_range },
+      { :created_at => current_month_range }
     )
   }
 
   scope :monthly_breakdown, -> {
-    where(:created_at => current_time.at_beginning_of_month..current_time.at_end_of_month)
+    where(:created_at => current_month_range)
   }
 
   def self.current_time
     Time.now
+  end
+
+  def self.current_month_range
+    current_time.at_beginning_of_month..current_time.at_end_of_month
   end
 
   def self.monthly_breakdown_by_type
