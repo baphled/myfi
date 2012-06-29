@@ -77,3 +77,12 @@ Feature: Reoccurring Transactions
       | 3                  | 6               | income           | Freelance  | 175.0  | 0.0        | 175.0                     |
       | 6                  | 12              | outgoing         | Water Bill | 75.0   | 0.0        | 75.0                      |
       | 12                 | 24              | income           | Freelance  | 175.0  | 0.0        | 175.0                     |
+
+  @wip
+  Scenario: I can only setup one reoccurring transaction type
+    Given I am on my new Transaction page
+    When I add my bi monthly "Water Bill" at "75.00" as my "income"
+    Then I should not see the quarterly transaction option
+    And I should not see the custom range transaction option
+    And I should not see the reoccurring transaction option
+
