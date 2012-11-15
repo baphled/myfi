@@ -47,7 +47,7 @@ class Transaction
 
   scope :this_month, -> {
     any_of(
-      { :reoccurring_until.lte => current_time.to_time.utc, :reoccurring => true },
+      { :reoccurring_until.lte => time.to_time.utc, :reoccurring => true },
       { :next_occurrence => current_month_range },
       { :created_at => current_month_range }
     )
@@ -57,12 +57,12 @@ class Transaction
     where(:created_at => current_month_range)
   }
 
-  def self.current_time
+  def self.time
     Time.now
   end
 
   def self.current_month_range
-    current_time.at_beginning_of_month..current_time.at_end_of_month
+    time.at_beginning_of_month..time.at_end_of_month
   end
 
   def self.monthly_breakdown_by_type
